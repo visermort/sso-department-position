@@ -1,6 +1,6 @@
 {
-  "name": "erg/sso-utils",
-  "description": "Tools for use erg/sso",
+  "name": "visermort/sso-department-position",
+  "description": "Caching sso data",
   "minimum-stability": "dev",
   "license": "MIT",
   "require": {

@@ -33,6 +33,6 @@ App/Console/Utils/FunctionalDirections.php
 
 Впишите команду Erg\SsoDepartmentPosition\Console\LoadDepartmentPositions.php для выполнения по расписанию в:
 * app/Console/Kernel.php
-* или непостредственно в Cron
+* или непосредственно в Cron
 
 
