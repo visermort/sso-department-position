@@ -38,6 +38,8 @@ class LoadDepartmentPositions extends Command
 
     private ?string $tableName;
 
+    private ?array $postActions;
+
     /**
      * The name and signature of the console command.
      *
@@ -68,6 +70,7 @@ class LoadDepartmentPositions extends Command
             throw new Exception('Empty config "sso_department_position.table_name"');
         }
 
+        $this->postActions = config('sso_department_position.post_actions');
     }
 
     /**
@@ -82,7 +85,30 @@ class LoadDepartmentPositions extends Command
         $deleteTable = $this->argument('delete_table');
         $this->verbose = !!$verbose;
         $this->deleteTable = !!$deleteTable;
-        return $this->loadDepartmentPositions();
+        $result = $this->loadDepartmentPositions();
+
+        $this->runPostActions();
+
+        return $result;
+    }
+
+
+    protected function runPostActions(): bool
+    {
+        if (empty($this->postActions)) {
+            return true;
+        }
+
+        foreach ($this->postActions as $action) {
+            $className = $action['className'] ?? null;
+            $method = $action['method'] ?? null;
+            if ($className && $method && method_exists($className, $method)) {
+                $class = new $className();
+                $class->$method;
+            }
+        }
+
+        return true;
     }
 
     protected function getFunctionalDirections(): ?array
