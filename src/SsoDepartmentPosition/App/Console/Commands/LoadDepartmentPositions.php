@@ -104,7 +104,7 @@ class LoadDepartmentPositions extends Command
             $method = $action['method'] ?? null;
             if ($className && $method && method_exists($className, $method)) {
                 $class = new $className();
-                $class->$method;
+                $class->$method($this->logger);
             }
         }
 
@@ -327,17 +327,17 @@ class LoadDepartmentPositions extends Command
     public function syncCountSubordinates(): void
     {
         DepartmentPosition::query()
-            ->select('edu_department_position.*')
+            ->select($this->tableName . '.*')
             ->selectRaw('count(subordinates.personnel_number_id) as subordinates_with_employment_percent_count')
-            ->join('edu_department_position as subordinates', 'subordinates.manager_id', '=',
-                'edu_department_position.position_id')
+            ->join($this->tableName . ' as subordinates', 'subordinates.manager_id', '=',
+                $this->tableName . '.position_id')
             ->whereNotNull('subordinates.personnel_number_id')
             ->where(function ($q) {
                 return $q->where('subordinates.employee_percent', '>', 0)
                     ->orWhereNull('subordinates.employee_percent');
             })
             ->where('subordinates.is_acting', false)
-            ->groupBy(['edu_department_position.id'])
+            ->groupBy([$this->tableName . '.id'])
             ->get()
             ->chunk(1000)
             ->each(function ($chunk) {
