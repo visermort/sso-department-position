@@ -1,0 +1,21 @@
+{
+  "name": "erg/sso-utils",
+  "description": "Tools for use erg/sso",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "require": {
+    "php": "^8.0.2"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Erg\\SsoDepartmentPosition\\SsoDepartmentPositionProvider"
+      ]
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Erg\\SsoDepartmentPosition\\": "src/SsoDepartmentPosition"
+    }
+  }
+}
