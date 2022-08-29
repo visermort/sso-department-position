@@ -1,8 +1,8 @@
 <?php
 
-namespace Erg\SsoDepartmentPosition\Console;
+namespace Erg\SsoDepartmentPosition\App\Console\Commands;
 
-use Erg\SsoDepartmentPosition\Console\Utils\Logger;
+use Erg\SsoDepartmentPosition\App\Console\Utils\Logger;
 use Erg\SsoDepartmentPosition\App\Models\DepartmentPosition;
 use App\Repository\DepartmentPosition\DepartmentPositionRepository;
 use App\Utils\Sso\Sso;
@@ -43,7 +43,7 @@ class LoadDepartmentPositions extends Command
      *
      * @var string
      */
-    protected $signature = 'load:department-positions {verbose?} {delete_table?}';
+    protected $signature = 'load:sso-department-positions {verbose?} {delete_table?}';
 
     /**
      * The console command description.
@@ -61,7 +61,7 @@ class LoadDepartmentPositions extends Command
     {
         parent::__construct();
         $this->ssoUtils = new Sso();
-        $this->logger = new Logger($this, 'load_department_positions');
+        $this->logger = new Logger($this, 'load_sso_department_positions');
 
         $this->tableName = config('sso_department_position.table_name');
         if (empty($this->tableName)) {

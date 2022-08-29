@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Erg\SsoDepartmentPosition\Console\Utils;
+namespace Erg\SsoDepartmentPosition\App\Console\Utils;
 
 
 use Illuminate\Console\Command;

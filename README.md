@@ -7,7 +7,7 @@
 ```
 composer require erg/sso-department-position
 
-php artisan vendor:publich
+php artisan vendor:publich --tag=Erg\SsoDepartmentPosition\SsoDepartmentPositionProvider
 
 ```
 
