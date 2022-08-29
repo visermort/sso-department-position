@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Ramsey\Uuid\Uuid;
-use App\App\Console\Commands\Utils\FunctioalDirections;
 
 class LoadDepartmentPositions extends Command
 {
@@ -87,7 +86,9 @@ class LoadDepartmentPositions extends Command
         $this->deleteTable = !!$deleteTable;
         $result = $this->loadDepartmentPositions();
 
-        $this->runPostActions();
+        if ($result) {
+            $this->runPostActions();
+        }
 
         return $result;
     }
@@ -113,7 +114,7 @@ class LoadDepartmentPositions extends Command
 
     protected function getFunctionalDirections(): ?array
     {
-        return FunctioalDirections::getFunctionalDirections();
+        return \App\Console\Utils\FunctionalDirections::getFunctionalDirections();
     }
 
     protected function getFunctionalDirection(?string $familyId): ?string

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Erg\SsoDepartmentPosition;
 
+use Erg\SsoDepartmentPosition\App\Console\Commands\LoadDepartmentPositions;
 use Illuminate\Support\ServiceProvider;
 
 class SsoDepartmentPositionProvider extends ServiceProvider
@@ -34,6 +35,12 @@ class SsoDepartmentPositionProvider extends ServiceProvider
 
             __DIR__.'/App/Console/Utils/FunctionalDirections.php' => app_path('Console/Utils/FunctionalDirections.php'),
         ]);
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                LoadDepartmentPositions::class,
+            ]);
+        }
 
     }
 }
